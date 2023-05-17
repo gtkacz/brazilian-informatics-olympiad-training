@@ -73,6 +73,7 @@ def main():
 
         print()
 
+    os.system('rm -rf tests')
     pd.DataFrame(raw_df).sort_values('year').to_markdown('tests.md', index=False)
 
 
