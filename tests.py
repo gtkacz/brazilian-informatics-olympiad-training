@@ -27,9 +27,12 @@ def main():
             'magico': {'input': ['4', '11 8 5 0', '14 1 4 15', '2 13 16 3', '7 12 9 6'], 'expected_output': ['10', '1', '4']},
             'maior': {'input': ['80', '500', '12'], 'expected_output': ['480']},
         },
-        # '2021': {
-        #     'chuva': {'input': [], 'expected_output': []},
-        # },
+        '2021': {
+            'baralho': {'input': ['01C02C03C04C05C07C09C10C11C02E02E03E11U'], 'expected_output': ['4', 'erro', '12', '13']},
+            'torneio': {'input': ['P', 'P', 'P', 'P', 'P', 'P'], 'expected_output': ['-1']},
+            'zero': {'input': ['10', '1', '3', '5', '4', '0', '0', '7', '0', '0', '6'], 'expected_output': ['7']},
+            # 'tempo': {'input': [], 'expected_output': []},
+        },
     }
 
     os.system('rm -rf tests')
@@ -59,22 +62,46 @@ def main():
             print(
                 f'{bcolors.OKGREEN if result else bcolors.FAIL}\tProblem: {problem}.py{bcolors.ENDC}')
             print(
-                f'{bcolors.OKGREEN if result else bcolors.FAIL}\t\tInput: {test["input"]}{bcolors.ENDC}')
+                f'{bcolors.OKGREEN if result else bcolors.FAIL}\t\t\tInput: {test["input"]}{bcolors.ENDC}')
             print(
-                f'{bcolors.OKGREEN if result else bcolors.FAIL}\t\tExpected output: {test["expected_output"]}{bcolors.ENDC}')
+                f'{bcolors.OKGREEN if result else bcolors.FAIL}\t\t\tExpected output: {test["expected_output"]}{bcolors.ENDC}')
             print(
-                f'{bcolors.OKGREEN if result else bcolors.FAIL}\t\tOutput: {test["output"]}{bcolors.ENDC}')
+                f'{bcolors.OKGREEN if result else bcolors.FAIL}\t\t\tOutput: {test["output"]}{bcolors.ENDC}')
             print(
-                f'{bcolors.OKGREEN if result else bcolors.FAIL}\t\tElapsed in: {end - start}s{bcolors.ENDC}')
+                f'{bcolors.OKGREEN if result else bcolors.FAIL}\t\t\tElapsed in: {end - start}s{bcolors.ENDC}')
             print(
-                f'{bcolors.OKGREEN if result else bcolors.FAIL}\t\tResult: {"OK" if result else "FAIL"}{bcolors.ENDC}')
-            
-            raw_df.append({'year': year, 'problem': problem, 'result': 'OK' if result else 'FAIL', 'elapsed (s)': end - start})
+                f'{bcolors.OKGREEN if result else bcolors.FAIL}\t\t\tResult: {"OK" if result else "FAIL"}{bcolors.ENDC}')
+
+            raw_df.append({'Year': year, 'Problem': problem,
+                          'Result': 'OK' if result else 'FAIL', 'Elapsed (s)': end - start})
 
         print()
 
     os.system('rm -rf tests')
-    pd.DataFrame(raw_df).sort_values('year').to_markdown('tests.md', index=False)
+    pd.DataFrame(raw_df).sort_values('Year', ascending=False).to_html(
+        '.tests.html', index=False, justify='center')
+
+    with open('README.md', 'r') as f:
+        readme = f.readlines()
+
+    with open('.tests.html', 'r') as f:
+        tests = f.read()
+
+    with open('README.md', 'w+') as f:
+        for index, line in enumerate(readme):
+            if '<!-- TESTS START -->' in line:
+                start_idx = index
+
+            if '<!-- TESTS END -->' in line:
+                end_idx = index
+
+        f.writelines(readme[:start_idx + 1])
+        f.write('\n')
+        f.write(tests)
+        f.write('\n')
+        f.writelines(readme[end_idx:])
+
+    os.system('rm -f .tests.html')
 
 
 if __name__ == '__main__':

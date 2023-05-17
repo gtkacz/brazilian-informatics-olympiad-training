@@ -9,7 +9,7 @@ def solve(m: list[int]) -> int:
 
 def main():
     n = int(input())
-    m = list(map(int, input()) for _ in range(n))
+    m = list(int(input()) for _ in range(n))
 
     print(solve(m))
 
