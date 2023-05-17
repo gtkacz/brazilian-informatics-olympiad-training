@@ -13,7 +13,7 @@ def main():
     m = int(input())
     s = int(input())
 
-    return solve(n, m, s)
+    print(solve(n, m, s))
 
 
 def tests():
@@ -31,5 +31,5 @@ def tests():
     print('All tests passed successfully!')
 
 if __name__ == '__main__':
-    print(main())
+    main()
     # tests()

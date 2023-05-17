@@ -17,7 +17,7 @@ def main():
     a = int(input())
     n = int(input())
 
-    return solve(d, a, n)
+    print(solve(d, a, n))
 
 
 def tests():
@@ -36,5 +36,5 @@ def tests():
 
 
 if __name__ == '__main__':
-    print(main())
+    main()
     # tests()
