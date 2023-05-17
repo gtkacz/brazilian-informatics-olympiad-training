@@ -1,4 +1,4 @@
-def solve(n: int, m: tuple[tuple[int]]) -> int:
+def solve(n: int, m: tuple[tuple[int]]) -> tuple[int]:
     zero_x, zero_y = None, None
     should_break = False
 

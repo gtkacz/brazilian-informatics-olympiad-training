@@ -1,14 +1,16 @@
+from collections import Counter
+from itertools import accumulate
+
+
 def solve(n: int, s: int, m: tuple[int]) -> int:
-    a = 0
+    table = Counter()
+    total = 0
 
-    for i in range(1, n+1):
-        for y in range(n-i+1):
-            p = m[y:y+i]
+    for acc in accumulate(m, initial=0):
+        total += table[acc - s]
+        table[acc] += 1
 
-            if sum(p) == s:
-                a += 1
-
-    return a
+    return total
 
 
 def main():
@@ -35,5 +37,5 @@ def tests():
 
 
 if __name__ == '__main__':
-    # main()
-    tests()
+    main()
+    # tests()
