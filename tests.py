@@ -92,12 +92,12 @@ def main():
             if '<!-- TESTS START -->' in line:
                 start_idx = index
 
-            if '<!-- TESTS END -->' in line:
+            elif '<!-- TESTS END -->' in line:
                 end_idx = index
+                break
 
         f.writelines(readme[:start_idx + 1])
-        f.write('\n')
-        f.write(tests)
+        f.write(tests.replace('<table ', '<table align="center" '))
         f.write('\n')
         f.writelines(readme[end_idx:])
 

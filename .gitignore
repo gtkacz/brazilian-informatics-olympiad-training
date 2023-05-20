@@ -161,6 +161,4 @@ cython_debug/
 
 # Custom
 *.pyc
-*.in
-*.out
-tests/
+template.py

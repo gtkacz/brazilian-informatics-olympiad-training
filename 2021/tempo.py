@@ -4,13 +4,7 @@ def solve(e: list[list[str, int]]) -> int:
 
 
 def main():
-    n = int(input())
-    e = []
-
-    for _ in range(n):
-        e.append(input().split())
-
-    print(solve(e))
+    e = int(input())
 
 
 def tests():
